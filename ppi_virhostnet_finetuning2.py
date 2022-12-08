@@ -21,14 +21,14 @@ def generate_parser():
 
     parser.add_argument(
         "--train_csv",
-        default=settings.BASE_DATA_DIR + "/generated/sarscov2/ml/train.txt",
+        default=settings.BASE_DATA_DIR + "/train.txt",
         # default=settings.BASE_DATA_DIR + "/generated/vp1/ml/train.txt",
         type=str,
         help="Path to the file containing the train data.",
     )
     parser.add_argument(
         "--predict_csv",
-        default=settings.BASE_DATA_DIR + "/generated/sarscov2/ml/test.txt",
+        default=settings.BASE_DATA_DIR + "/test.txt",
         # default=settings.BASE_DATA_DIR + "/generated/vp1/ml/predict_vp1_interactions_template.txt",
         type=str,
         help="Path to the file containing the inferencing data.",
@@ -97,9 +97,9 @@ def main(params):
         model_params["gradient_checkpointing"] = True
         model_params["label_set"] = "1,0"
         # model_params["weight_decay"] = 1e-2
-        model_params["train_csv"] = settings.BASE_DATA_DIR + "/generated/sarscov2/ml/train.txt"
-        model_params["valid_csv"] = settings.BASE_DATA_DIR + "/generated/sarscov2/ml/valid.txt"
-        model_params["test_csv"] = settings.BASE_DATA_DIR + "/generated/sarscov2/ml/test.txt"
+        model_params["train_csv"] = settings.BASE_DATA_DIR + "/train.txt"
+        model_params["valid_csv"] = settings.BASE_DATA_DIR + "/valid.txt"
+        model_params["test_csv"] = settings.BASE_DATA_DIR + "/test.txt"
         model_params["loader_workers"] = 8
         model_params["model_name"] = model_name
         model_params["tokenizer_name"] = tokenizer_name
@@ -194,7 +194,7 @@ def main(params):
             df_to_output.at[ix, "score"] = score
             
         # Save results
-        results_file = settings.BASE_DATA_DIR + "/generated/sarscov2/ml/prot_t5_xl_bfd_new5.txt"
+        results_file = settings.home_base_dir + "/res/prot_t5_xl_bfd_new5.txt"
         df_to_output.to_csv(results_file, sep="\t", index=False)
 
 #%%
